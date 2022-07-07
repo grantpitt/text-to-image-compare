@@ -13,6 +13,8 @@ export const get: RequestHandler = async ({ url }) => {
     };
   }
 
+  console.log(__dirname);
+
   try {
     const image = await fs.promises.readFile(
       __dirname + `/src/assets/images/${imageFilename.replace(":", "/")}`
