@@ -22,30 +22,25 @@
     > and ran on July 6, 2022.
   </p>
 </header>
+
 <main>
-  <section class="meta" />
-  <section class="models">
-    {#each ["mini", "mega", "mega-full", "imagen"] as model}
-      <section class="model">
-        {#each prompts as prompt}
-          <div class="gap">
-            {#if model === "mini"}
-              <div class="prompt">{prompt}</div>
-            {/if}
-            <div class="model-name">
-              {model}
-            </div>
-          </div>
+  {#each prompts as prompt}
+    <article>
+      <section class="prompt">{prompt}</section>
+      {#each ["mini", "mega", "mega-full", "imagen"] as model}
+        <section class="model">
+          <div class="model-name">{model}</div>
           {#each range8 as i}
             <img
-              src="api/image?name={`${model}:${prompt}:${i}.jpeg`}"
-              alt="generated"
+              loading="lazy"
+              src="/imgs/{`${model}/${prompt}:${i}.jpeg`}"
+              alt="generated: {prompt} #{i}"
             />
           {/each}
-        {/each}
-      </section>
-    {/each}
-  </section>
+        </section>
+      {/each}
+    </article>
+  {/each}
 </main>
 
 <style>
@@ -82,14 +77,14 @@
   }
 
   h1 {
-    font-size: 3.5rem;
+    font-size: 3rem;
     font-weight: 700;
     text-align: center;
   }
 
   p {
     text-align: center;
-    font-size: 1.6rem;
+    font-size: 1.5rem;
   }
 
   a {
@@ -102,52 +97,29 @@
     text-decoration: underline;
   }
 
-  main {
-    display: flex;
-  }
-
-  .meta {
-    width: var(--meta-width);
-  }
-
-  .prompt {
-    position: absolute;
-    width: var(--meta-width);
-    --height: 350px;
-    font-size: 1.9rem;
-    height: 350px;
-    transform: translate(calc(-1 * var(--meta-width)), calc(175px - 1.25rem));
-    padding-right: 2rem;
-  }
-
-  .model-name {
-    font-family: "IBM Plex Mono", monospace;
-    color: #aaa;
-  }
-
-  .models {
-    flex: 1;
-    position: relative;
+  article {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: min(350px, 25vw) repeat(4, 1fr);
     gap: 2rem;
-  }
-
-  .gap {
-    line-height: 2.5rem;
-    display: flex;
-    align-items: center;
-    grid-column: span 2;
-    font-size: 1.65rem;
-    padding: 1rem 0;
   }
 
   .model {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    align-tracks: center;
-    justify-tracks: center;
-    gap: 5px;
+    gap: 0.25rem;
+  }
+
+  .model-name {
+    grid-column: span 2;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 1.85rem;
+    margin: 1.5rem 0;
+    color: #aaa;
+  }
+
+  .prompt {
+    font-size: 2rem;
+    margin: 1.5rem 0;
   }
 
   img {
