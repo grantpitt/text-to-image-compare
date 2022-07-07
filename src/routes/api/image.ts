@@ -12,7 +12,6 @@ export const get: RequestHandler = async ({ url }) => {
       body: "Image name not provided"
     };
   }
-  console.log(imageFilename);
 
   try {
     const image = await fs.promises.readFile(

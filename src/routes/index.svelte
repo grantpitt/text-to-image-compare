@@ -1,5 +1,5 @@
 <script lang="ts">
-  import prompts from "../../../sample.json";
+  import prompts from "../assets/sample.json";
   const range8 = [...Array(8).keys()];
 </script>
 
